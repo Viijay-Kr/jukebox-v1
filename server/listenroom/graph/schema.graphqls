@@ -1,0 +1,49 @@
+type Listener {
+  id: ID!
+  name: String!
+}
+type ListenRoom {
+  name: String!
+  owner: ID!
+  playlistID: String!
+  messages: [Message!]!
+  listeners: [Listener!]!
+}
+
+type ListenRequest {
+  senderID: ID!
+  senderName: String!
+  room: ListenRoom!
+}
+
+type Mutation {
+  post(text: String!, username: String!, roomName: String!): Message!
+  requestToListen(
+    playlistID: String!
+    username: String!
+    senderID: ID!
+    receiverID: ID!
+    roomName: String!
+  ): ListenRoom
+  joinRoom(roomName: String!, userID: ID!, username: String!): ListenRoom!
+  createRoom(roomName: String!, owner: ID!, playlistID: String!): ListenRoom!
+}
+type Query {
+  room(name: String!): ListenRoom
+  requests(id: ID!): [ListenRequest]!
+}
+type Message {
+  id: ID!
+  text: String!
+  createdBy: String!
+  createdAt: Time!
+}
+
+type Subscription {
+  messageAdded(roomName: String!): Message!
+  listenerJoined(roomName: String!): Listener!
+}
+
+scalar Time
+
+directive @listtenRoom(username: String!) on SUBSCRIPTION

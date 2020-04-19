@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@apollo/gateway": "^0.13.2",
+    "@apollo/server": "^3.0.0-alpha.1",
+    "@types/styled-components": "^5.0.1",
+    "apollo-server": "^2.11.0"
+  },
+  "name": "jukebox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:VijayKrish93/jukebox.git",
+  "author": "Vijayakrishna.V <vijayakrishna.v@macbook-pro-480.local>",
+  "license": "MIT",
+  "private": false
+}

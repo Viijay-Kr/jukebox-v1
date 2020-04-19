@@ -1,0 +1,48 @@
+enum Accounts {
+  SPOTIFY
+  APPLE
+}
+type AlbumImage {
+  height: Int!
+  width: Int!
+  url: String!
+}
+type Album {
+  id: ID!
+  name: String!
+  images: [AlbumImage!]!
+}
+
+type Artist {
+  id: ID!
+  name: String!
+  type: String!
+}
+
+type ExternalTrack {
+  id: ID!
+  name: String!
+  href: String!
+  externalIds: [String!]
+  explicit: Boolean!
+  type: String!
+  uri: String!
+  album: Album!
+  artist: [Artist!]
+  previewUrl: String!
+}
+
+type Song @key(fields: "id name") {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  songs: [Song!]!
+  songById(id: ID!): Song!
+}
+
+extend type Playlist @key(fields: "id") {
+  id: ID! @external
+  tracks: [ExternalTrack!]
+}

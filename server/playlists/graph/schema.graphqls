@@ -1,0 +1,54 @@
+enum Accounts {
+  APPLE
+  SPOTIFY
+}
+type Image {
+  height: Int!
+  url: String!
+  width: Int!
+}
+
+type Playlist @key(fields: "id name account") {
+  id: ID!
+  user: User! @provides(fields: "id name")
+  name: String!
+  account: Accounts
+  images: [Image!]!
+  description: String
+}
+
+type Query {
+  playlists(userID: ID!): [Playlist!]!
+  playlistById(id: ID!): Playlist!
+}
+
+input NewPlaylist {
+  name: String!
+  userID: ID!
+}
+
+input AddSongs {
+  name: String!
+  linkedAccount: String!
+  playlistId: ID!
+}
+
+input NewSong {
+  name: String!
+  playlistId: ID!
+}
+
+type Mutation {
+  createPlaylist(playlist: NewPlaylist): Playlist!
+  deletePlaylist(id: ID!): Playlist!
+  addSongToPlaylist(input: NewSong): Playlist!
+  deleteSongFromPlaylist(id: ID!): Boolean
+}
+
+extend type User @key(fields: "id name") {
+  id: ID! @external
+  name: String! @external
+  playlists(account: Accounts!): [Playlist!]! @goField(forceResolver: true)
+}
+
+directive @goField(forceResolver: Boolean) on FIELD_DEFINITION

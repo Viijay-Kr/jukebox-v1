@@ -1,0 +1,38 @@
+enum Accounts {
+  APPLE
+  SPOTIFY
+}
+type ExternalAccounts @key(fields: "account userID") {
+  userID: ID!
+  account: Accounts!
+  accessToken: String!
+  refreshToken: String!
+}
+type User @key(fields: "id name") {
+  id: ID!
+  name: String!
+  email: String!
+  linkedAccounts: [ExternalAccounts!]
+  isOnline: Boolean!
+}
+type Query {
+  users: [User!]!
+  getLinkedAccounts(id: ID!): [ExternalAccounts!]
+  userById(id: ID!): User!
+  login(email: String!): User!
+}
+
+input NewUser {
+  name: String!
+  email: String!
+}
+
+input LinkAccount {
+  id: ID!
+}
+
+type Mutation {
+  createUser(user: NewUser!): User!
+  linkAccount(id: ID!, account: Accounts!): String!
+  tokenHandShake(code: String!, id: ID!): User!
+}
