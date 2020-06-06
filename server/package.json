@@ -3,7 +3,7 @@
     "@apollo/gateway": "^0.13.2",
     "@apollo/server": "^3.0.0-alpha.1",
     "@types/styled-components": "^5.0.1",
-    "apollo-server": "^2.11.0"
+    "apollo-server": "^2.14.2"
   },
   "name": "jukebox",
   "version": "1.0.0",
